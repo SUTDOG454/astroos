@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://astroos.local/schemas/crypto_market_snapshot_v1.json",
+  "title": "CryptoMarketSnapshot.v1",
+  "type": "object",
+  "required": ["event_id", "event_type", "schema_version", "observed_at", "ingested_at", "asset", "market", "quality", "provenance"],
+  "properties": {
+    "event_id": {"type": "string"},
+    "event_type": {"const": "crypto.market.snapshot"},
+    "schema_version": {"const": "1.0"},
+    "observed_at": {"type": "string", "format": "date-time"},
+    "ingested_at": {"type": "string", "format": "date-time"},
+    "asset": {
+      "type": "object",
+      "required": ["canonical_id", "provider", "provider_id", "symbol", "name"],
+      "properties": {
+        "canonical_id": {"type": "string"},
+        "provider": {"type": "string"},
+        "provider_id": {"type": "string"},
+        "symbol": {"type": "string"},
+        "name": {"type": "string"}
+      },
+      "additionalProperties": false
+    },
+    "market": {"type": "object"},
+    "quality": {
+      "type": "object",
+      "required": ["is_valid", "quality_score", "warnings"],
+      "properties": {
+        "is_valid": {"type": "boolean"},
+        "quality_score": {"type": "number", "minimum": 0, "maximum": 1},
+        "warnings": {"type": "array", "items": {"type": "string"}}
+      }
+    },
+    "provenance": {
+      "type": "object",
+      "required": ["source", "endpoint"],
+      "properties": {"source": {"type": "string"}, "endpoint": {"type": "string"}}
+    }
+  },
+  "additionalProperties": false
+}
