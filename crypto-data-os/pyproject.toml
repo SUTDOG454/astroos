@@ -1,0 +1,31 @@
+[build-system]
+requires = ["setuptools>=69", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "astroos-crypto-data-os"
+version = "0.1.0"
+description = "CoinGecko ingestion and canonical crypto market data pipeline for AstroOS"
+requires-python = ">=3.11"
+dependencies = [
+  "aiohttp>=3.9,<4",
+  "aiokafka>=0.10,<1",
+  "clickhouse-connect>=0.7,<1",
+  "pydantic>=2.7,<3",
+  "pydantic-settings>=2.2,<3",
+  "prometheus-client>=0.20,<1",
+]
+
+[project.optional-dependencies]
+test = [
+  "pytest>=8,<9",
+  "pytest-asyncio>=0.23,<1",
+  "aioresponses>=0.7,<1",
+]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+pythonpath = ["src"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
